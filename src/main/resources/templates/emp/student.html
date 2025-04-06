@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"> <!-- 添加 Thymeleaf 命名空间 -->
+<head>
+    <title>emplist-学生列表</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}" />
+</head>
+<body>
+<div id="wrap">
+    <div id="top_content">
+        <div id="header">
+            <div id="rightheader">
+                    <p th:text="${#dates.format(new java.util.Date(), 'yyyy/MM/dd')}"> <!-- 动态显示当前日期 -->
+            </div>
+            <div id="topheader">
+                <h1 id="title">
+                    <a href="#">main学生管理系统</a>
+                </h1>
+            </div>
+            <div id="navigation">
+            </div>
+        </div>
+        <div id="content">
+            <p id="whereami">
+            </p>
+            <h1>
+                Welcome!欢迎使用学生管理系统
+            </h1>
+            <div id="search_section">
+                <!-- 搜索表单 -->
+                <form th:action="@{/emp/student}" method="get" class="search_form">
+                    <input type="number"
+                           name="id"
+                           placeholder="输入学生ID搜索"
+                           min="1"
+                           th:value="${param.id}"
+                           class="search_input">
+                    <button type="submit" class="search_button">搜索</button>
+                </form>
+
+                <!-- 错误提示 -->
+                <div th:if="${error}" class="error_msg" th:text="${error}"></div>
+            </div>
+            <table>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Gender</th>
+                    <th>Age</th>
+                </tr>
+                <tr th:each="student : ${students}">
+                    <td th:text="${student.id}"></td>
+                    <td th:text="${student.name}"></td>
+                    <td th:text="${student.gender}"></td>
+                    <td th:text="${student.age}"></td>
+                    <td>
+                        <!-- 删除按钮，确认后跳到 /emp/delete/{id} -->
+                        <a th:href="@{/emp/delete/{id}(id=${student.id})}"
+                           onclick="return confirm('确定要删除 【'+[[${student.name}]]
++'】 吗？');"
+                           class="button">删除</a>
+                        <!-- 修改按钮，跳到编辑表单 /emp/edit/{id} -->
+                        <a th:href="@{/emp/updatestu(id=${student.id})}" class="button">修改</a>
+                    </td>
+                </tr>
+            </table>
+            <p>
+                <br>
+                <a th:href="@{/emp/export}" class="button">导出 Excel</a>
+                &nbsp;&nbsp;
+                <a th:href="@{/emp/addstu}" type="button" class="button">添加学生</a>
+            </p>
+        </div>
+    </div>
+    <div id="footer">
+        <div id="footer_bg">📞:12315</div>
+    </div>
+</div>
+</body>
+</html>

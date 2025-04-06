@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>更新学生信息</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}" />
+</head>
+<body>
+<div id="wrap">
+  <div id="top_content">
+    <div id="header">
+      <div id="rightheader">
+        <p th:text="${#dates.format(new java.util.Date(), 'yyyy/MM/dd')}">
+          <br />
+        </p>
+      </div>
+      <div id="topheader">
+        <h1 id="title">
+          <a href="#" th:href="@{/emp/student}">学生管理系统</a>
+        </h1>
+      </div>
+    </div>
+    <div id="content">
+      <h1>更新学生信息</h1>
+      <form th:action="@{/emp/updatestu}" th:object="${student}" method="post">
+        <input type="hidden" th:field="*{id}" />
+        <table cellpadding="0" cellspacing="0" border="0" class="form_table">
+          <tr>
+            <td valign="middle" align="right">姓名:</td>
+            <td valign="middle" align="left">
+              <input type="text" class="inputgri" th:field="*{name}" required />
+            </td>
+          </tr>
+          <tr>
+            <td valign="middle" align="right">性别:</td>
+            <td valign="middle" align="left">
+              <label><input type="radio" th:field="*{gender}" value="男" /> 男</label>
+              <label><input type="radio" th:field="*{gender}" value="女" /> 女</label>
+            </td>
+          </tr>
+          <tr>
+            <td valign="middle" align="right">年龄:</td>
+            <td valign="middle" align="left">
+              <input type="number" class="inputgri" th:field="*{age}" required />
+            </td>
+          </tr>
+        </table>
+        <p>
+          <input type="submit" class="button" value="确认修改" />
+          <a th:href="@{/emp/student}" class="button">返回列表</a>
+        </p>
+        <div th:if="${error}" class="error" th:text="${error}"></div>
+      </form>
+    </div>
+  </div>
+  <div id="footer">
+    <div id="footer_bg">📞:12315</div>
+  </div>
+</div>
+</body>
+</html>
