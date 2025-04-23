@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>regist-用户注册</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <!-- 修正 CSS 路径：使用 Thymeleaf 动态路径 -->
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}" />
+</head>
+<body>
+
+<div id="wrap">
+    <div id="top_content">
+        <div id="header">
+            <div id="rightheader">
+                <p th:text="${#dates.format(new java.util.Date(), 'yyyy/MM/dd')}"> <!-- 动态显示当前日期 -->
+            </div>
+            <div id="topheader">
+                <h1 id="title">
+                    <a href="#" th:href="@{/emp/student}">学生管理系统</a> <!-- 动态跳转到主页面 -->
+                </h1>
+            </div>
+        </div>
+        <div id="content">
+            <h1>用户注册</h1>
+            <!-- 修正表单提交路径：提交到 /regist 接口 -->
+            <form th:action="@{/regist}" method="post">
+                <table cellpadding="0" cellspacing="0" border="0" class="form_table">
+                    <tr>
+                        <td valign="middle" align="right">用户名:</td>
+                        <td valign="middle" align="left">
+                            <!-- 字段名与 User 实体类属性一致 -->
+                            <input type="text" class="inputgri" name="username" required />
+                        </td>
+                    </tr>
+                    <tr>
+                    </tr>
+                    <tr>
+                        <td valign="middle" align="right">密码:</td>
+                        <td valign="middle" align="left">
+                            <input type="password" class="inputgri" name="password" required /> <!-- 字段名统一为 password -->
+                        </td>
+                    </tr>
+                    <tr>
+                        <td valign="middle" align="right">性别:</td>
+                        <td valign="middle" align="left">
+                            <!-- 调整选项值，与后端实体类匹配 -->
+                            男 <input type="radio" class="inputgri" name="gender" value="MALE" checked="checked" />
+                            女 <input type="radio" class="inputgri" name="gender" value="FEMALE" />
+                        </td>
+                    </tr>
+                </table>
+                <p>
+                    <input type="submit" class="button" value="提交注册 &raquo;" />
+                    <!-- 添加返回登录页的链接 -->
+                    <a th:href="@{/login}" class="button">返回登录</a>
+                </p>
+                <!-- 错误信息提示 -->
+                <div th:if="${error}" class="error" th:text="${error}"></div>
+            </form>
+        </div>
+    </div>
+    <div id="footer">
+        <div id="footer_bg">📞:12315</div>
+    </div>
+</div>
+</body>
+</html>

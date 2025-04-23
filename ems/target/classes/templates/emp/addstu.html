@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"> <!-- 添加 Thymeleaf 命名空间 -->
+<head>
+    <title>添加学生信息</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <!-- 修正 CSS 路径：使用 Thymeleaf 动态路径 -->
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}" />
+</head>
+
+<body>
+<div id="wrap">
+    <div id="top_content">
+        <div id="header">
+            <div id="rightheader">
+                <p th:text="${#dates.format(new java.util.Date(), 'yyyy/MM/dd')}"> <!-- 动态显示当前日期 -->
+                    <br />
+                </p>
+            </div>
+            <div id="topheader">
+                <h1 id="title">
+                    <a href="#" th:href="@{/emp/student}">学生管理系统</a> <!-- 动态跳转到主页面 -->
+                </h1>
+            </div>
+        </div>
+        <div id="content">
+            <h1>添加新学生</h1>
+            <!-- 动态指定表单提交路径 -->
+            <form th:action="@{/emp/addstu}" method="post">
+                <table cellpadding="0" cellspacing="0" border="0" class="form_table">
+                    <tr>
+                        <td valign="middle" align="right">姓名:</td>
+                        <td valign="middle" align="left">
+                            <input type="text" class="inputgri" name="name" required />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td valign="middle" align="right">性别:</td>
+                        <td valign="middle" align="left">
+                            <!-- 使用单选按钮更规范 -->
+                            <input type="radio" name="gender" value="男" checked /> 男
+                            <input type="radio" name="gender" value="女" /> 女
+                        </td>
+                    </tr>
+                    <tr>
+                        <td valign="middle" align="right">年龄:</td>
+                        <td valign="middle" align="left">
+                            <input type="number" class="inputgri" name="age" required />
+                        </td>
+                    </tr>
+                </table>
+                <p>
+                    <input type="submit" class="button" value="确认添加" />
+                    <!-- 返回学生列表页 -->
+                    <a th:href="@{/emp/student}" class="button">返回列表</a>
+                </p>
+                <!-- 错误信息提示 -->
+                <div th:if="${error}" class="error" th:text="${error}"></div>
+            </form>
+        </div>
+    </div>
+    <div id="footer">
+        <div id="footer_bg">📞:12315</div>
+    </div>
+</div>
+</body>
+</html>
